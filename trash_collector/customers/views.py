@@ -16,7 +16,7 @@ def index(request):
     return render(request, 'customers/index.html')
 
 
-def weekly_pickup(request, customer_id):
+def weekly_pickup(request):
     # if request.method == 'POST':
     #     current_customer = Customer.objects.get(pk=customer_id)
     #     current_customer.weekly_pickup = request.POST.get('weekly_pickup')
