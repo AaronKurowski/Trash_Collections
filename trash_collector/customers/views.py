@@ -14,3 +14,25 @@ def index(request):
     # thereby finding the customer/employee profile that matches with the logged-in user.
     print(user)
     return render(request, 'customers/index.html')
+
+
+def weekly_pickup(request, customer_id):
+    # if request.method == 'POST':
+    #     current_customer = Customer.objects.get(pk=customer_id)
+    #     current_customer.weekly_pickup = request.POST.get('weekly_pickup')
+    #     current_customer.save()
+    #     return render(request, 'customers/weekly_pickup.html')
+    # else:
+    #     current_customer = Customer.objects.get(pk=customer_id)
+    #     context = {
+    #         'weekly_pickup': current_customer
+    #     }
+    #     return render(request, 'customers/weekly_pickup.html', context)
+    pass
+    # current_customer = Customer.objects.get(pk=customer_id)
+    # if current_customer.weekly_pickup is None:
+    #
+    # if request.method == 'POST':
+    #     customer_weekly_pickup = Customer.objects.get('weekly_pickup')
+    #     if customer_weekly_pickup ==
+    #     return render(request, 'customers/weekly_pickup.html')

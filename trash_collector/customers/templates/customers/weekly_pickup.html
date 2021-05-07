@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Weekly Pick-up {% endblock %}
+
+{% block header %} Your weekly pick-up! {% endblock %}
+
+{% block content %}
+
+<label>Choose Your Pick Up Day:</label>
+<select id="weekly_pickup" name="weekly_pickup">
+    <option value="Sunday">Sunday</option>
+    <option value="Monday">Monday</option>
+    <option value="Tuesday">Tuesday</option>
+    <option value="Wednesday">Wednesday</option>
+    <option value="Thursday">Thursday</option>
+    <option value="Friday">Friday</option>
+    <option value="Saturday">Saturday</option>
+</select>
+
+
+{% endblock %}

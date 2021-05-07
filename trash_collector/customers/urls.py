@@ -7,4 +7,5 @@ from . import views
 app_name = "customers"
 urlpatterns = [
     path('', views.index, name="index"),
+    path('weekly_pickup/<int:id>', views.weekly_pickup, name='weekly_pickup')
 ]
