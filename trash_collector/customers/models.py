@@ -17,3 +17,6 @@ class Customer(models.Model):
     last_completed = models.DateField(auto_now=False, auto_now_add=False, default=None, blank=True, null=True)
     suspend_start = models.DateField(auto_now=False, auto_now_add=False, default=None, blank=True, null=True)
     suspend_end = models.DateField(auto_now=False, auto_now_add=False, default=None, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
