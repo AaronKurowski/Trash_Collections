@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import render
 from .models import Customer
 # Create your views here.
@@ -23,3 +24,12 @@ def weekly_pickup(request):
         customer.weekly_pickup = request.POST.get('weekly_pickup')
         customer.save()
     return render(request, 'customers/weekly_pickup.html')
+
+
+def bonus_pickup(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    if request.method == 'POST' and customer.bonus_pickup is None:
+        customer.bonus_pickup = request.POST.get('bonus_pickup')
+        customer.save()
+    return render(request, 'customers/bonus_pickup.html')

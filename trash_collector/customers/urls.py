@@ -7,5 +7,6 @@ from . import views
 app_name = "customers"
 urlpatterns = [
     path('', views.index, name="index"),
-    path('weekly_pickup/', views.weekly_pickup, name='weekly_pickup')
+    path('weekly_pickup/', views.weekly_pickup, name='weekly_pickup'),
+    path('bonus_pickup', views.bonus_pickup, name='bonus_pickup')
 ]
