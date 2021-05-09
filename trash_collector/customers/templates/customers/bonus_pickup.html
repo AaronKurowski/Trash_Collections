@@ -7,11 +7,13 @@
 {% block content %}
 
 
-<form method="POST" action="{% url 'customers:bonus_pickup' %}">
+<form class="d-flex justify-content-center" method="POST" action="{% url 'customers:bonus_pickup' %}">
     {% csrf_token %}
-    <label for="bonus_pickup">Bonus pick up day:</label>
+    <label for="bonus_pickup">Bonus pick up day: </label>
     <input type="date" name="bonus_pickup" id="bonus_pickup">
     <input type="submit" value="Submit">
 </form>
+
+{# notify user that they've used their one time pickup and display date #}
 
 {% endblock %}

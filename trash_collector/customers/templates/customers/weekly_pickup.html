@@ -5,20 +5,21 @@
 {% block header %} Your weekly pick-up! {% endblock %}
 
 {% block content %}
-
+<div style="text-align:center">
 <label>Choose Your Pick Up Day:</label>
-<form method="POST" action="{% url 'customers:weekly_pickup' %}">
-    {% csrf_token %}
-    <select id="weekly_pickup" name="weekly_pickup">
-        <option value="Sunday">Sunday</option>
-        <option value="Monday">Monday</option>
-        <option value="Tuesday">Tuesday</option>
-        <option value="Wednesday">Wednesday</option>
-        <option value="Thursday">Thursday</option>
-        <option value="Friday">Friday</option>
-        <option value="Saturday">Saturday</option>
-    </select>
-<input type="submit" value="Change Day">
+    <form method="POST" action="{% url 'customers:weekly_pickup' %}">
+        {% csrf_token %}
+        <select id="weekly_pickup" name="weekly_pickup">
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+    <input type="submit" value="Change Day">
 
-</form>
+    </form>
+</div>
 {% endblock %}
