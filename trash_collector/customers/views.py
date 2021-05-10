@@ -35,6 +35,16 @@ def weekly_pickup(request):
     return render(request, 'customers/weekly_pickup.html')
 
 
+def suspend_dates(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    if request.method == 'POST':
+        customer.suspend_start = request.POST.get('suspend_start')
+        customer.suspend_end = request.POST.get('suspend_end')
+        customer.save()
+    return render(request, 'customers/weekly_pickup.html')
+
+
 def bonus_pickup(request):
     user = request.user
     customer = Customer.objects.get(user_id=user.id)

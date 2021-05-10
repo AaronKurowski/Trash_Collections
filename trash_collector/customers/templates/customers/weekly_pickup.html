@@ -19,12 +19,20 @@
             <option value="Saturday">Saturday</option>
         </select>
     <input type="submit" value="Change Day">
-
     </form>
 
-    <form method="POST" action="{% url 'customers:weekly_pickup' %}">
-        {% csrf_token %}
+    <br><br>
 
+    <form method="POST" action="{% url 'customers:suspend_dates' %}">
+        {% csrf_token %}
+        <label for="suspend_start">Suspension Start Date:</label><br>
+        <input type="date" name="suspend_start" id="suspend_start">
+        <br><br>
+        <label for="suspend_end">Suspension End Date:</label>
+        <br>
+        <input type="date" name="suspend_end" id="suspend_end">
+        <br>
+        <input type="submit" value="Suspend Pickups">
     </form>
 </div>
 {% endblock %}
