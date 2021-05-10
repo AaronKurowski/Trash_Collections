@@ -9,7 +9,7 @@ class Customer(models.Model):
     bonus_pickup = models.DateField(auto_now=False, auto_now_add=False, default=None, blank=True, null=True)
     amount_due = models.DecimalField(max_digits=50, default=0, decimal_places=2, blank=True, null=True)
 
-    zipcode = models.IntegerField(default=None, blank=True, null=True)
+    zipcode = models.CharField(max_length=50, default=None, blank=True, null=True)
     address = models.CharField(max_length=50, default=None, blank=True, null=True)
     city = models.CharField(max_length=50, default=None, blank=True, null=True)
     phone_number = models.CharField(max_length=15, default=None, blank=True, null=True)

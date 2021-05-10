@@ -21,5 +21,10 @@
     <input type="submit" value="Change Day">
 
     </form>
+
+    <form method="POST" action="{% url 'customers:weekly_pickup' %}">
+        {% csrf_token %}
+
+    </form>
 </div>
 {% endblock %}
