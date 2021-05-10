@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.apps import apps
+from .models import Employee
+import datetime
+from datetime import date
 
 # Create your views here.
 
@@ -8,6 +11,14 @@ from django.apps import apps
 
 
 def index(request):
+    my_date = date.today()
     # Get the Customer model from the other app, it can now be used to query the db
     Customer = apps.get_model('customers.Customer')
-    return render(request, 'employees/index.html')
+    todays_customers = Customer.objects.filter(weekly_pickup=convert_todays_date_to_day()) | Customer.objects.filter(bonus_pickup=date.today())
+    context = {'todays_customers': todays_customers}
+    return render(request, 'employees/index.html', context)
+
+def convert_todays_date_to_day():
+    today = date.today()
+    today = today.strftime("%A")
+    return today
