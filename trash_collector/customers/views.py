@@ -18,7 +18,7 @@ def index(request):
         }
         return render(request, 'customers/index.html', context)
     except:
-        return HttpResponseRedirect('customers:create')
+        return HttpResponseRedirect(reverse('customers:create'))
         # customer = Customer.objects.get(user_id=user.id)
         # context = {
         #     'customer': customer
@@ -31,6 +31,16 @@ def weekly_pickup(request):
     customer = Customer.objects.get(user_id=user.id)
     if request.method == 'POST':
         customer.weekly_pickup = request.POST.get('weekly_pickup')
+        customer.save()
+    return render(request, 'customers/weekly_pickup.html')
+
+
+def suspend_dates(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    if request.method == 'POST':
+        customer.suspend_start = request.POST.get('suspend_start')
+        customer.suspend_end = request.POST.get('suspend_end')
         customer.save()
     return render(request, 'customers/weekly_pickup.html')
 
@@ -54,6 +64,7 @@ def balance(request):
 
 
 def create(request):
+    user = request.user
     if request.method == 'POST':
         name = request.POST.get('name')
         address = request.POST.get('address')
@@ -61,9 +72,9 @@ def create(request):
         zipcode = request.POST.get('zipcode')
         phone_number = request.POST.get('phone_number')
 
-        new_customer = Customer(name=name, address=address, city=city, zipcode=zipcode,
+        new_customer = Customer(name=name, user_id=user.id, address=address, city=city, zipcode=zipcode,
                                 phone_number=phone_number)
         new_customer.save()
-        return render(request, 'customers/index.html')
+        return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/create.html')
