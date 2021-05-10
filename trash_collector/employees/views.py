@@ -18,6 +18,7 @@ def index(request):
     context = {'todays_customers': todays_customers}
     return render(request, 'employees/index.html', context)
 
+
 def convert_todays_date_to_day():
     today = date.today()
     today = today.strftime("%A")

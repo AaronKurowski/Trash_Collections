@@ -6,30 +6,29 @@
 
 {% block content %}
 
-<form action="{% url 'customers:create' %}" method="POST">
+<form style="text-align:center" action="{% url 'customers:create' %}" method="POST">
     {% csrf_token %}
-    <div>
-        <label for="name" name="name">Name</label>
-        <input type="text" id="name" name="name">
-    </div>
-    <div>
-        <label for="address" name="address">Name</label>
-        <input type="text" id="address" name="address">
-    </div>
-    <div>
-        <label for="city" name="city">Name</label>
-        <input type="text" id="city" name="city">
-    </div>
-    <div>
-        <label for="zipcode" name="zipcode">Name</label>
-        <input type="text" id="zipcode" name="zipcode">
-    </div>
-    <div>
-        <label for="phone_number" name="phone_number">Name</label>
-        <input type="text" id="phone_number" name="phone_number">
-    </div><br>
+        <div>
+            <label class="form-label" for="name">Name</label>
+            <input class="" type="text" id="name" name="name">
+        </div>
+        <div>
+            <label class="form-label" for="address">Address</label>
+            <input class="" type="text" id="address" name="address">
+        </div>
+        <div>
+            <label class="form-label" for="city">City</label>
+            <input class="" type="text" id="city" name="city">
+        </div>
+        <div>
+            <label class="form-label" for="zipcode">Zipcode</label>
+            <input class="" type="text" id="zipcode" name="zipcode">
+        </div>
+        <div>
+            <label class="form-label" for="phone_number">Phone</label>
+            <input class="" type="text" id="phone_number" name="phone_number">
+        </div>
     <input type="submit" value="Become Customer!">
-    <a href="{% url '' %}">Go back (maybe)</a>
 </form>
 
 {% endblock %}
