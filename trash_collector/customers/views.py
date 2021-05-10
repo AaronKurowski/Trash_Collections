@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render
 from .models import Customer
+from django.urls import reverse
 # Create your views here.
 
 # TODO: Create a function for each path created in customers/urls.py. Each will need a template as well.
@@ -10,11 +11,19 @@ from .models import Customer
 def index(request):
     # The following line will get the logged-in in user (if there is one) within any view function
     user = request.user
-    # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
-    # This will allow you to later query the database using the logged-in user,
-    # thereby finding the customer/employee profile that matches with the logged-in user.
-    print(user)
-    return render(request, 'customers/index.html')
+    try:
+        customer = Customer.objects.get(user_id=user.id)
+        context = {
+            'customer': customer
+        }
+        return render(request, 'customers/index.html', context)
+    except:
+        return HttpResponseRedirect('customers:create')
+        # customer = Customer.objects.get(user_id=user.id)
+        # context = {
+        #     'customer': customer
+        # }
+        # return render(request, 'customers/index.html', context)
 
 
 def weekly_pickup(request):
@@ -33,3 +42,28 @@ def bonus_pickup(request):
         customer.bonus_pickup = request.POST.get('bonus_pickup')
         customer.save()
     return render(request, 'customers/bonus_pickup.html')
+
+
+def balance(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    context = {
+        'customer': customer
+    }
+    return render(request, 'customers/balance.html', context)
+
+
+def create(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        zipcode = request.POST.get('zipcode')
+        phone_number = request.POST.get('phone_number')
+
+        new_customer = Customer(name=name, address=address, city=city, zipcode=zipcode,
+                                phone_number=phone_number)
+        new_customer.save()
+        return render(request, 'customers/index.html')
+    else:
+        return render(request, 'customers/create.html')
