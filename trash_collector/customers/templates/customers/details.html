@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Account Details {% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+<div style="text-align:center">
+    <b>Name:</b> {{customer.name}}<br>
+    <b>Address:</b> {{customer.address}}<br>
+    <b>City:</b> {{customer.city}}<br>
+    <b>Zipcode:</b> {{customer.zipcode}}<br>
+    <b>Phone Number:</b> {{ customer.phone_number }}<br>
+    {# Keep adding details here and create a view/path all that good stuff #}
+</div>
+
+
+
+
+{% endblock %}
+

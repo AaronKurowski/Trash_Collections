@@ -9,7 +9,6 @@ from django.urls import reverse
 
 
 def index(request):
-    # The following line will get the logged-in in user (if there is one) within any view function
     user = request.user
     try:
         customer = Customer.objects.get(user_id=user.id)
@@ -19,11 +18,6 @@ def index(request):
         return render(request, 'customers/index.html', context)
     except:
         return HttpResponseRedirect(reverse('customers:create'))
-        # customer = Customer.objects.get(user_id=user.id)
-        # context = {
-        #     'customer': customer
-        # }
-        # return render(request, 'customers/index.html', context)
 
 
 def weekly_pickup(request):
@@ -78,3 +72,12 @@ def create(request):
         return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/create.html')
+
+
+def details(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    context = {
+        'customer': customer
+    }
+    return render(request, 'customers/details.html', context)
