@@ -21,10 +21,12 @@ def index(request):
     context = {'todays_customers': todays_customers}
     return render(request, 'employees/index.html', context)
 
+
 def convert_todays_date_to_day():
     today = date.today()
     today = today.strftime("%A")
     return today
+
 
 def set_active(query_set):
     todays_customers = query_set
@@ -37,3 +39,14 @@ def set_active(query_set):
                 customer.active = True
                 customer.save()
     return todays_customers
+
+
+def charge_customer(request, customer_id):
+    Customer = apps.get_model('customers.Customer')
+    customer = Customer.objects.get(user_id=customer_id)
+    customer.last_completed = date.today()
+    customer.amount_due += 12.00
+    customer.save()
+    return render(request, 'employees/index.html')
+
+
