@@ -11,9 +11,12 @@ from datetime import date
 
 
 def index(request):
-    # Get the Customer model from the other app, it can now be used to query the db
+    user = request.user
+    employee = Employee.objects.get(user_id=user.id)
     Customer = apps.get_model('customers.Customer')
-    todays_customers = Customer.objects.filter(weekly_pickup=convert_todays_date_to_day()) | Customer.objects.filter(bonus_pickup=date.today())
+    todays_customers = Customer.objects.filter(zipcode=employee.zipcode)
+    todays_customers = todays_customers.filter(weekly_pickup=convert_todays_date_to_day()) | todays_customers.filter(bonus_pickup=date.today())
+    todays_customers = set_active(todays_customers)
     todays_customers = todays_customers.exclude(active=False)
     context = {'todays_customers': todays_customers}
     return render(request, 'employees/index.html', context)
@@ -23,11 +26,14 @@ def convert_todays_date_to_day():
     today = today.strftime("%A")
     return today
 
-def set_active():
-    # Function not complete
-    Customer = apps.get_model('customers.Customer')
-    todays_customers = Customer.objects.filter()
+def set_active(query_set):
+    todays_customers = query_set
     for customer in todays_customers:
         if customer.suspend_start != None:
             if customer.suspend_start <= date.today() and customer.suspend_end >= date.today():
                 customer.active = False
+                customer.save()
+            else:
+                customer.active = True
+                customer.save()
+    return todays_customers
