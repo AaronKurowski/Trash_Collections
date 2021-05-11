@@ -6,5 +6,6 @@ from . import views
 
 app_name = "employees"
 urlpatterns = [
-    path('', views.index, name="index")
+    path('', views.index, name="index"),
+    path('<int:customer_id>', views.charge_customer, name="charge_customer")
 ]

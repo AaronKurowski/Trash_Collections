@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
 from .models import Employee
 import datetime
 from datetime import date
+from django.urls import reverse
 
 # Create your views here.
 
@@ -31,22 +32,24 @@ def convert_todays_date_to_day():
 def set_active(query_set):
     todays_customers = query_set
     for customer in todays_customers:
-        if customer.suspend_start != None:
-            if customer.suspend_start <= date.today() and customer.suspend_end >= date.today():
+        if customer.suspend_start is not None:
+            if customer.suspend_start <= date.today() <= customer.suspend_end:
                 customer.active = False
                 customer.save()
             else:
                 customer.active = True
                 customer.save()
+        else:
+            customer.active = True
+            customer.save()
     return todays_customers
 
 
 def charge_customer(request, customer_id):
+    # user = request.user
     Customer = apps.get_model('customers.Customer')
-    customer = Customer.objects.get(user_id=customer_id)
+    customer = Customer.objects.get(id=customer_id)
     customer.last_completed = date.today()
-    customer.amount_due += 12.00
+    customer.amount_due += 12
     customer.save()
-    return render(request, 'employees/index.html')
-
-
+    return HttpResponseRedirect(reverse('employees:index'))

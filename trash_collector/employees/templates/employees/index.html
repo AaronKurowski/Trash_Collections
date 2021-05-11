@@ -4,7 +4,7 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-<h2>Hello Employee {{ user.username }}!</h2>
+<h2>Hello {{ user.username }}!</h2>
     <h3>Today's Pickups</h3>
     <table class="table table-hover">
       <thead>
@@ -25,7 +25,7 @@
         <td>{{customer.city}}</td>
         <td>{{customer.zipcode}}</td>
         <td>{{customer.phone_number}}</td>
-        <td><a href="#"><button type="button" class="btn btn-success">Complete</button></a></td>
+        <td><a href="{% url 'employees:charge_customer' customer.id %}"><input type="submit" value="Complete Pickup"></a></td>
       </tr>
         {% endfor %}
       </tbody>
