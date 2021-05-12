@@ -13,11 +13,12 @@ from django.urls import reverse
 
 def index(request):
     user = request.user
-    employee = Employee.objects.get(user_id=user.id)
+    try:
+        employee = Employee.objects.get(user_id=user.id)
+    except:
+        return HttpResponseRedirect(reverse('employees:create'))
     Customer = apps.get_model('customers.Customer')
     todays_customers = Customer.objects.filter(zipcode=employee.zipcode)
-
-    # the line below looks like it might need to be changed to be able to filter by day from employee input
     todays_customers = todays_customers.filter(weekly_pickup=chosen_day(request)) | todays_customers.filter(bonus_pickup=date.today())
     todays_customers = set_active(todays_customers)
     todays_customers = todays_customers.exclude(active=False)
@@ -63,3 +64,17 @@ def chosen_day(request):
         return selected_day
     else:
         return date.today().strftime('%A')
+
+
+def create(request):
+    user = request.user
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        zipcode = request.POST.get('zipcode')
+
+        new_employee = Employee(name=name, user_id=user.id, zipcode=zipcode)
+
+        new_employee.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return render(request, 'employees/create.html')

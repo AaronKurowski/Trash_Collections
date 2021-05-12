@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{% block header %} Employee Create {% endblock %}{% endblock %}
+
+{% block content %}
+<form style="text-align:center" action="{% url 'employees:create' %}" method="POST">
+    {% csrf_token %}
+        <div>
+            <label class="form-label" for="name">Name</label>
+            <input class="" type="text" id="name" name="name">
+        </div>
+        <div>
+            <label class="form-label" for="zipcode">Zipcode</label>
+            <input class="" type="text" id="zipcode" name="zipcode">
+        </div>
+    <input type="submit" value="Register as Employee!">
+</form>
+
+{% endblock %}
