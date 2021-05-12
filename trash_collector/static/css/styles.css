@@ -1,0 +1,13 @@
+.bg {
+    background-color: silver;
+}
+
+.center {
+    margin-left: 45%;
+    margin-right: 50%;
+}
+
+.border {
+    border: seagreen;
+    border-radius: 10px;
+}

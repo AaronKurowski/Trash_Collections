@@ -5,6 +5,7 @@
 {% block content %}
 <form style="text-align:center" action="{% url 'employees:create' %}" method="POST">
     {% csrf_token %}
+
         <div>
             <label class="form-label" for="name">Name</label>
             <input class="" type="text" id="name" name="name">
