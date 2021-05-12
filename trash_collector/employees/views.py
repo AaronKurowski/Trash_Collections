@@ -19,7 +19,7 @@ def index(request):
         return HttpResponseRedirect(reverse('employees:create'))
     Customer = apps.get_model('customers.Customer')
     todays_customers = Customer.objects.filter(zipcode=employee.zipcode)
-    todays_customers = todays_customers.filter(weekly_pickup=chosen_day(request)) | todays_customers.filter(bonus_pickup=date.today())
+    todays_customers = todays_customers.filter(weekly_pickup=convert_todays_date_to_day()) | todays_customers.filter(bonus_pickup=date.today())
     todays_customers = set_active(todays_customers)
     todays_customers = todays_customers.exclude(active=False)
     context = {'todays_customers': todays_customers}
@@ -78,3 +78,17 @@ def create(request):
         return HttpResponseRedirect(reverse('employees:index'))
     else:
         return render(request, 'employees/create.html')
+
+def view_schedule(request):
+    user = request.user
+    try:
+        employee = Employee.objects.get(user_id=user.id)
+    except:
+        return HttpResponseRedirect(reverse('employees:create'))
+    Customer = apps.get_model('customers.Customer')
+    todays_customers = Customer.objects.filter(zipcode=employee.zipcode)
+    todays_customers = todays_customers.filter(weekly_pickup=chosen_day(request)) | todays_customers.filter(bonus_pickup=date.today())
+    todays_customers = set_active(todays_customers)
+    todays_customers = todays_customers.exclude(active=False)
+    context = {'todays_customers': todays_customers}
+    return render(request, 'employees/view_schedule.html', context)

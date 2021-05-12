@@ -5,7 +5,22 @@
 {% block content %}
   {% if user.is_authenticated %}
 <h2>Hello {{ user.username }}!</h2>
-<h3>Today's Pickups</h3>
+<h3>View Schedule</h3>
+
+<form method="POST" action="">
+        {% csrf_token %}
+        <select id="selected_day" name="selected_day">
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+    <input type="submit" value="Change Day">
+</form>
+
     <table class="table table-hover">
       <thead>
         <tr>
@@ -14,7 +29,6 @@
           <th>City</th>
           <th>Zip Code</th>
           <th>Phone</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -25,7 +39,6 @@
         <td>{{customer.city}}</td>
         <td>{{customer.zipcode}}</td>
         <td>{{customer.phone_number}}</td>
-        <td><a href="{% url 'employees:charge_customer' customer.id %}"><button type="button" class="btn btn-success">Completed</button></a></td>
       </tr>
         {% endfor %}
       </tbody>
