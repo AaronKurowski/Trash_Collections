@@ -16,7 +16,9 @@ def index(request):
     employee = Employee.objects.get(user_id=user.id)
     Customer = apps.get_model('customers.Customer')
     todays_customers = Customer.objects.filter(zipcode=employee.zipcode)
-    todays_customers = todays_customers.filter(weekly_pickup=convert_todays_date_to_day()) | todays_customers.filter(bonus_pickup=date.today())
+
+    # the line below looks like it might need to be changed to be able to filter by day from employee input
+    todays_customers = todays_customers.filter(weekly_pickup=chosen_day(request)) | todays_customers.filter(bonus_pickup=date.today())
     todays_customers = set_active(todays_customers)
     todays_customers = todays_customers.exclude(active=False)
     context = {'todays_customers': todays_customers}
@@ -53,3 +55,11 @@ def charge_customer(request, customer_id):
     customer.amount_due += 12
     customer.save()
     return HttpResponseRedirect(reverse('employees:index'))
+
+
+def chosen_day(request):
+    if request.method == 'POST':
+        selected_day = request.POST.get('selected_day')
+        return selected_day
+    else:
+        return date.today().strftime('%A')

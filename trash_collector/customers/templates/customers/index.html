@@ -9,15 +9,19 @@
   {% if user.is_authenticated %}
     <p style="text-align:center">Hello {{ user.username }}!<br><br>
     {% if customer.weekly_pickup is not None %}
-    Your current pickup day is <b>{{customer.weekly_pickup}}</b>
+    Your current pickup day is <b>{{customer.weekly_pickup}}</b><br>
+
     {% else %}
-    You have no current weekday pickup scheduled!
-  {% endif %}
+    You have no current weekday pickup scheduled!<br>
+      Click <b>"Weekly Pickup"</b> in the upper left to schedule a day.
+      {% endif %}
+      {% if customer.bonus_pickup is not None %}
+      Your bonus pickup is scheduled for <b>{{customer.bonus_pickup}}</b>
+      {% else %}
+      You have not scheduled your bonus pickup day
+      {% endif %}
 </p>
-
-
-
-  {% else %}
+    {% else %}
     <p>You are at the customer index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
     <a href="{% url 'accounts:register' %}">Sign Up</a>
