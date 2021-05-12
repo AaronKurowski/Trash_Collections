@@ -8,5 +8,6 @@ app_name = "employees"
 urlpatterns = [
     path('', views.index, name="index"),
     path('<int:customer_id>', views.charge_customer, name="charge_customer"),
-    path('create/', views.create, name="create")
+    path('create/', views.create, name="create"),
+    path('view_schedule/', views.view_schedule, name='view_schedule')
 ]
